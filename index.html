@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>Numerical Methods Visual Lab</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Numerical Methods Visual Lab</h1>
+<p>Interactive Scientific Calculator</p>
+
+<button onclick="toggleTheme()">Toggle Dark Mode</button>
+
+</header>
+
+
+<div class="tabs">
+
+<button onclick="showTab('gauss')">Gauss Jordan</button>
+<button onclick="showTab('newton')">Interpolation</button>
+<button onclick="showTab('euler')">Euler Method</button>
+
+</div>
+
+
+<div id="gauss" class="tab">
+
+<h2>Gauss Jordan Solver</h2>
+
+<div id="matrix"></div>
+
+<button onclick="solveGauss()">Solve</button>
+
+<h3>Steps</h3>
+
+<pre id="gaussSteps"></pre>
+
+<h3>Result</h3>
+
+<p id="gaussResult"></p>
+
+</div>
+
+
+
+<div id="newton" class="tab">
+
+<h2>Newton Interpolation</h2>
+
+<input id="xValues" placeholder="X values: 1,2,3">
+
+<input id="yValues" placeholder="Y values: 2,4,6">
+
+<input id="targetX" placeholder="Find f(x)">
+
+<button onclick="newtonInterpolation()">Calculate</button>
+
+<p id="newtonResult"></p>
+
+<canvas id="interpGraph"></canvas>
+
+</div>
+
+
+
+<div id="euler" class="tab">
+
+<h2>Euler Method</h2>
+
+<input id="equation" placeholder="dy/dx example: x+y">
+
+<input id="x0" placeholder="x0">
+
+<input id="y0" placeholder="y0">
+
+<input id="h" placeholder="step size">
+
+<input id="xn" placeholder="target x">
+
+<button onclick="eulerMethod()">Calculate</button>
+
+<table id="eulerTable">
+
+<tr>
+<th>Step</th>
+<th>x</th>
+<th>y</th>
+</tr>
+
+</table>
+
+<canvas id="eulerGraph"></canvas>
+
+</div>
+
+
+<footer>
+
+<button onclick="exportPDF()">Export Result as PDF</button>
+
+<p>Developed for Numerical Methods Project</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
