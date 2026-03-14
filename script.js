@@ -115,15 +115,43 @@ type:"scatter",
 
 data:{
 datasets:[{
-label:"Points",
+
+label:"Data Points",
+
 data:x.map((v,i)=>({x:v,y:y[i]})),
+
+backgroundColor:"red",
+borderColor:"red",
+
 pointRadius:6
+
 }]
+},
+
+options:{
+plugins:{
+legend:{
+labels:{
+color:"white"
+}
+}
+},
+
+scales:{
+x:{
+ticks:{color:"white"},
+grid:{color:"rgba(255,255,255,0.2)"}
+},
+
+y:{
+ticks:{color:"white"},
+grid:{color:"rgba(255,255,255,0.2)"}
+}
 }
 
-})
-
 }
+
+})}
 
 
 /* EULER */
@@ -168,29 +196,121 @@ type:"line",
 
 data:{
 labels:xs,
+
 datasets:[{
 label:"Euler Approximation",
 data:ys,
+
+borderColor:"red",
+backgroundColor:"red",
+
 fill:false,
 tension:0.3
 }]
+},
+
+options:{
+plugins:{
+legend:{
+labels:{
+color:"white"
+}
+}
+},
+
+scales:{
+x:{
+ticks:{color:"white"},
+grid:{color:"rgba(255,255,255,0.2)"}
+},
+
+y:{
+ticks:{color:"white"},
+grid:{color:"rgba(255,255,255,0.2)"}
+}
 }
 
-})
-
 }
+
+})}
 
 
 /* EXPORT PDF */
 
 function exportPDF(){
 
-const { jsPDF } = window.jspdf
+const { jsPDF } = window.jspdf;
 
-let doc=new jsPDF()
+let doc = new jsPDF();
 
-doc.text("Numerical Methods Result",20,20)
+let y = 20;
 
-doc.save("result.pdf")
+/* TITLE */
+
+doc.setFontSize(18);
+doc.text("Numerical Methods Calculator Results",20,y);
+
+y += 15;
+
+/* GAUSS RESULT */
+
+let gauss = document.getElementById("gaussResult").innerText;
+
+if(gauss){
+doc.setFontSize(14);
+doc.text("Gauss Jordan Solution:",20,y);
+y += 10;
+doc.setFontSize(12);
+doc.text(gauss,20,y);
+y += 15;
+}
+
+/* NEWTON RESULT */
+
+let newton = document.getElementById("newtonResult").innerText;
+
+if(newton){
+doc.setFontSize(14);
+doc.text("Newton Interpolation Result:",20,y);
+y += 10;
+doc.setFontSize(12);
+doc.text(newton,20,y);
+y += 15;
+}
+
+/* EULER TABLE */
+
+let table = document.getElementById("eulerTable");
+
+if(table){
+
+doc.setFontSize(14);
+doc.text("Euler Method Iterations:",20,y);
+y += 10;
+
+for(let i=1;i<table.rows.length;i++){
+
+let row = table.rows[i];
+
+let text =
+row.cells[0].innerText + "   " +
+row.cells[1].innerText + "   " +
+row.cells[2].innerText;
+
+doc.setFontSize(12);
+doc.text(text,20,y);
+
+y += 8;
+
+if(y > 280){
+doc.addPage();
+y = 20;
+}
+
+}
+
+}
+
+doc.save("Numerical_Methods_Result.pdf");
 
 }
